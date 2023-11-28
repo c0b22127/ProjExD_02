@@ -48,7 +48,6 @@ def main():
     vx, vy = +5, +5  #練習2：爆弾の速度
     clock = pg.time.Clock()
     tmr = 0
-
     #追加機能1：こうかとんリスト
     kk_lst = {(-5, 0): pg.transform.rotozoom(kk_img, 0, 1.0),
               (-5, -5): pg.transform.rotozoom(kk_img, -45, 1.0),
