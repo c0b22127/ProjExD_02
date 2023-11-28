@@ -5,6 +5,7 @@ import pygame as pg
 
 WIDTH, HEIGHT = 1600, 900
 
+
 delta = {
     pg.K_UP: (0, -5),  #キー：移動量/値
     pg.K_DOWN: (0, +5),
@@ -42,9 +43,20 @@ def main():
     bb_rct.centerx = random.randint(0, WIDTH)
     bb_rct.centery = random.randint(0, HEIGHT)
     vx, vy = +5, +5  #練習2：爆弾の速度
-
     clock = pg.time.Clock()
     tmr = 0
+
+    #追加機能1：こうかとんリスト
+    kk_lst = {(-5, 0): pg.transform.rotozoom(kk_img, 0, 1.0),
+              (-5, -5): pg.transform.rotozoom(kk_img, -45, 1.0),
+              (0, -5): pg.transform.flip(pg.transform.rotozoom(kk_img, -90, 1.0), True, False),
+              (+5, -5): pg.transform.flip(pg.transform.rotozoom(kk_img, -45, 1.0), True, False),
+              (+5, 0): pg.transform.flip(pg.transform.rotozoom(kk_img, 0, 1.0), True, False),
+              (+5, +5): pg.transform.flip(pg.transform.rotozoom(kk_img, 45, 1.0), True, False),
+              (0, +5): pg.transform.flip(pg.transform.rotozoom(kk_img, 90, 1.0), True, False),
+              (-5, +5): pg.transform.rotozoom(kk_img, 45, 1.0)}
+
+
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: 
@@ -53,15 +65,24 @@ def main():
             if kk_rct.colliderect(bb_rct):
                 print("Game Over")
                 return
-            
+
+        #追加機能1：こうかとん画像の切り替え
+        key_lst = pg.key.get_pressed()
+        sum_mv = [0, 0]
+        for key, tpl in delta.items():
+            if key_lst[key]:
+                sum_mv[0] += tpl[0]
+                sum_mv[1] += tpl[1]
+            for l, m in kk_lst.items():
+                if sum_mv[0] == l[0] and sum_mv[1] ==l[1]:
+                    kk_img = m  
+
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]
         for k, tpl in delta.items():
             if key_lst[k]:  #キーが押されたら
                 sum_mv[0] += tpl[0]
                 sum_mv[1] += tpl[1]
-        
-
 
         screen.blit(bg_img, [0, 0])
         kk_rct.move_ip(sum_mv[0], sum_mv[1])
