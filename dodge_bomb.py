@@ -34,6 +34,10 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+
+    #追加機能３：こうかとん画像挿入
+    kkn_img = pg.image.load("ex02/fig/8.png")
+    kkn_img = pg.transform.rotozoom(kkn_img, 0, 2.0)
     kk_rct = kk_img.get_rect()
     kk_rct.center = 900, 400
     bb_img = pg.Surface((20, 20))  #練習1：透明のSurfaceを作る
@@ -63,6 +67,10 @@ def main():
                 return
             
             if kk_rct.colliderect(bb_rct):
+
+                #追加機能３：こうかとんの切り替え
+                screen.blit(kkn_img, kk_rct)
+                pg.display.update()
                 print("Game Over")
                 return
 
@@ -98,7 +106,7 @@ def main():
         screen.blit(bb_img, bb_rct)
         pg.display.update()
         tmr += 1
-        clock.tick(50)
+        clock.tick(10)
 
 
 if __name__ == "__main__":
