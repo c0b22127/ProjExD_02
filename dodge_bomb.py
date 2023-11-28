@@ -34,7 +34,6 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
-
     #追加機能３：こうかとん画像挿入
     kkn_img = pg.image.load("ex02/fig/8.png")
     kkn_img = pg.transform.rotozoom(kkn_img, 0, 2.0)
